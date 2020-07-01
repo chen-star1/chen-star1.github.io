@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
-    <title>Gridea</title>
-    <updated>2020-07-01T15:06:06.699Z</updated>
+    <title>我不是神犇</title>
+    <updated>2020-07-01T15:10:51.474Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>多功能博客，待完善
+&lt;a href=&quot;https://chen-star1.github.io/&quot;&gt; 博客链接 &lt;/a&gt;</subtitle>
     <logo>https://chen-star1.github.io/images/avatar.png</logo>
     <icon>https://chen-star1.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, 我不是神犇</rights>
     <entry>
         <title type="html"><![CDATA[2011提高组 T3:Mayan游戏]]></title>
         <id>https://chen-star1.github.io/post/2011-ti-gao-zu-t3mayan-you-xi/</id>
