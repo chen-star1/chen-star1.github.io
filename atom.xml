@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
     <title>我不是神犇</title>
-    <updated>2020-07-01T15:28:55.056Z</updated>
+    <updated>2020-07-01T15:38:19.522Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
@@ -11,6 +11,24 @@
     <logo>https://chen-star1.github.io/images/avatar.png</logo>
     <icon>https://chen-star1.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不是神犇</rights>
+    <entry>
+        <title type="html"><![CDATA[更新日志&问题报告]]></title>
+        <id>https://chen-star1.github.io/post/geng-xin-ri-zhi-andwen-ti-bao-gao/</id>
+        <link href="https://chen-star1.github.io/post/geng-xin-ri-zhi-andwen-ti-bao-gao/">
+        </link>
+        <updated>2020-07-01T15:31:24.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="更新日志"><strong>更新日志</strong></h1>
+<ol>
+<li>更新了<strong>2011提高组T3:Mayan 游戏</strong> 的 <strong>题解</strong><br>
+<a href="https://chen-star1.github.io/post/2011-ti-gao-zu-t3mayan-you-xi/">从此页面进入</a><br>
+<a href="https://chen-star1.github.io/post/2011-ti-gao-zu-t3mayan-you-xi/" target=_blank> 从新页面进入 </a></li>
+</ol>
+<h1 id="问题报告"><strong>问题报告</strong></h1>
+<ol>
+<li>微信二维码无法显示，正在努力修复(<s>我也不知道咋修</s>)</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2011提高组 T3:Mayan游戏]]></title>
         <id>https://chen-star1.github.io/post/2011-ti-gao-zu-t3mayan-you-xi/</id>
