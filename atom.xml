@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
     <title>Gridea</title>
-    <updated>2020-07-01T13:52:26.540Z</updated>
+    <updated>2020-07-01T13:53:53.697Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
@@ -105,14 +105,10 @@ bool de[mxn][mxn]; //临时删除存储，讲删除时会详细讲解
 Why? <s>显而易见</s><br>
 想一想，如果左边不是空块，那么该步骤就可以<strong>变成一个点向右移</strong><br>
 而答案要求字典序输出，1优先于-1</p>
-<blockquote>
-<blockquote>
-<p>注意事项<br>
-1.剪枝(上面有了)<br>
+<h2 id="注意事项"><strong>注意事项</strong></h2>
+<p>1.剪枝(上面有了)<br>
 2.记得回溯，用last数组调回map(因为有多组解，要寻找最优解更新)<br>
 3.答案输出:以(0,0)为起始点，如果以(1,1)为起始点要减一</p>
-</blockquote>
-</blockquote>
 <h3 id="code">Code:</h3>
 <pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;

@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>2011提高组 T3:Mayan游戏 | Gridea</title>
-<link rel="shortcut icon" href="https://chen-star1.github.io//favicon.ico?v=1593611543457">
+<link rel="shortcut icon" href="https://chen-star1.github.io//favicon.ico?v=1593611632114">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://chen-star1.github.io//styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="2011提高组 T3:Mayan游戏 | Gridea - Atom Feed" href="https://chen-star1.github.io//atom.xml">
@@ -28,7 +28,7 @@ int last[mxn][mxn][mxn]; //用于..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://chen-star1.github.io/">
-  <img class="avatar" src="https://chen-star1.github.io//images/avatar.png?v=1593611543457" alt="">
+  <img class="avatar" src="https://chen-star1.github.io//images/avatar.png?v=1593611632114" alt="">
   </a>
   <h1 class="site-title">
     Gridea
@@ -188,14 +188,10 @@ bool de[mxn][mxn]; //临时删除存储，讲删除时会详细讲解
 Why? <s>显而易见</s><br>
 想一想，如果左边不是空块，那么该步骤就可以<strong>变成一个点向右移</strong><br>
 而答案要求字典序输出，1优先于-1</p>
-<blockquote>
-<blockquote>
-<p>注意事项<br>
-1.剪枝(上面有了)<br>
+<h2 id="注意事项"><strong>注意事项</strong></h2>
+<p>1.剪枝(上面有了)<br>
 2.记得回溯，用last数组调回map(因为有多组解，要寻找最优解更新)<br>
 3.答案输出:以(0,0)为起始点，如果以(1,1)为起始点要减一</p>
-</blockquote>
-</blockquote>
 <h3 id="code">Code:</h3>
 <pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
@@ -375,7 +371,8 @@ template&lt;class T&gt;void read(T &amp;x)
 <li><a href="#3del%E5%88%A0%E9%99%A4"><em>3.del(删除)</em></a></li>
 </ul>
 </li>
-<li><a href="#%E5%89%AA%E6%9E%9D%E6%8A%80%E5%B7%A7"><strong>剪枝技巧</strong></a>
+<li><a href="#%E5%89%AA%E6%9E%9D%E6%8A%80%E5%B7%A7"><strong>剪枝技巧</strong></a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><strong>注意事项</strong></a>
 <ul>
 <li><a href="#code">Code:</a></li>
 </ul>
