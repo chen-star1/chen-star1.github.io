@@ -164,16 +164,19 @@ bool de[mxn][mxn]; //临时删除存储，讲删除时会详细讲解
 </code></pre>
 <p>定义成bool类型，是因为消除之后可能会再次有方块掉落，掉落后又会产生新的能消除的方块<br>
 所以在每次update更新后都要检查能否继续消除</p>
+<hr>
 <h2 id="剪枝技巧"><strong>剪枝技巧</strong></h2>
 <p>1.相同颜色交换可以跳过(必须的)<br>
 <strong>2.如果向左边移动，那么被交换的位置一定是空块</strong><br>
 Why? <s>显而易见</s><br>
 想一想，如果左边不是空块，那么该步骤就可以<strong>变成一个点向右移</strong><br>
 而答案要求字典序输出，1优先于-1</p>
+<hr>
 <h2 id="注意事项"><strong>注意事项</strong></h2>
 <p>1.剪枝(上面有了)<br>
 2.记得回溯，用last数组调回map(因为有多组解，要寻找最优解更新)<br>
 3.答案输出:以(0,0)为起始点，如果以(1,1)为起始点要减一</p>
+<hr>
 <h3 id="code">Code:</h3>
 <pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
