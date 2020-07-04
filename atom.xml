@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
     <title>我不是神犇</title>
-    <updated>2020-07-03T03:32:25.064Z</updated>
+    <updated>2020-07-04T12:06:54.511Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
@@ -11,6 +11,165 @@
     <logo>https://chen-star1.github.io/images/avatar.png</logo>
     <icon>https://chen-star1.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不是神犇</rights>
+    <entry>
+        <title type="html"><![CDATA[2011提高组T6:观光公交]]></title>
+        <id>https://chen-star1.github.io/post/2011-ti-gao-zu-t6guan-guang-gong-jiao/</id>
+        <link href="https://chen-star1.github.io/post/2011-ti-gao-zu-t6guan-guang-gong-jiao/">
+        </link>
+        <updated>2020-07-03T02:36:37.000Z</updated>
+        <content type="html"><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P1315" target=_blank>洛谷传送门</a><br>
+<s>为什么我第一眼看过去像个DP</s></p>
+<h1 id="基本流程"><strong>基本流程</strong></h1>
+<ol>
+<li>计算不用加速器的时间ans</li>
+<li>使用加速器缩小时间ans</li>
+</ol>
+<h1 id="不用加速器"><strong>不用加速器</strong></h1>
+<p>题面写了<em>公交车每次都必须等待所有景点上车才能前往下一个景点</em><br>
+所以想到什么(<s>啥都没想到</s>):计算每一站的到达时间 (a记录乘客的信息)</p>
+<pre><code class="language-cpp">for(int i=1;i&lt;=m;i++)  las[a[i].st]=max(las[a[i].st],a[i].t);
+</code></pre>
+<p>第一站到达时间肯定是<strong>las[i]</strong>:</p>
+<pre><code class="language-cpp">arr[1]=las[1]
+</code></pre>
+<p>随后就是一个动态更新的过程，每一站的到达时间就是前一站的发车时间加这一段路的时间</p>
+<pre><code class="language-cpp">for(int i=2;i&lt;=n;i++) arr[i]=max(arr[i-1],las[i-1])+di[i-1];
+</code></pre>
+<p>最后就是ans了，显然易见，每个乘客的旅游时间=到达时间-出发时间</p>
+<pre><code class="language-cpp">for(int i=1;i&lt;=m;i++) ans+=arr[a[i].ed]-a[i].t;
+</code></pre>
+<p><s>好了,10%的分拿上了</s></p>
+<hr>
+<h1 id="使用加速器"><strong>使用加速器</strong></h1>
+<p>这是就要想使用加速器怎样获得最大收益: <s>废话</s><br>
+<s>简单</s>推理一下:</p>
+<ul>
+<li>肯定收益的人更多使用加速器更值钱</li>
+<li>但不一定用在人数最多的点上就是最优</li>
+<li>可能加速器能影响许多站点(比如人等车的情况,会缩短等待时间)
+<ul>
+<li>结论:算出加速器在一个点使用能影响到的最远点，计算两点间的乘客数，比较即可选出最优<br>
+<s>所以啰嗦半天就是要使收益人最多</s></li>
+</ul>
+</li>
+</ul>
+<p><strong>倒着推方便计算</strong>(<s>好像只能倒着推</s>)</p>
+<pre><code class="language-cpp">        lst[n]=lst[n-1]=n;//预处理
+        for(int i=n-2;i&gt;=1;i--)
+        {
+            if(arr[i+1]&lt;=las[i+1]) 
+            {
+                //如果到达时间小于最后一个人等待时间，那就是人等车，可以延续
+                lst[i]=i+1;
+            }
+            else lst[i]=lst[i+1];//否则车等人，开再多也没用，就停滞了
+        }
+</code></pre>
+<p>题面又说了 <em>每个加速器加速1分钟</em>，所以扫一遍找出缩短时间的最大值</p>
+<pre><code class="language-cpp">        for(int i=1;i&lt;n;i++)
+        {
+            int val=pre[lst[i]]-pre[i];//这里用了前缀和，第i点不受益，不是i-1
+            if(val&gt;mx&amp;&amp;di[i]&gt;0) //保证Di&gt;=0,所以减1就是保证Di&gt;0
+            {
+                tar=i;//tar记录的是对那一条路使用加速器，更新要用
+                mx=val;
+            }
+        }
+</code></pre>
+<p>好了下面就是更新了，要更新的有</p>
+<ol>
+<li>答案ans</li>
+<li>使用加速器那条路的通过实践</li>
+<li>到达时间</li>
+</ol>
+<pre><code class="language-cpp">        ans-=mx;
+        di[tar]-=1;
+        for(int i=2;i&lt;=n;i++) arr[i]=max(arr[i-1],las[i-1])+di[i-1];
+</code></pre>
+<p>最后输出ans，结束</p>
+<h1 id="code"><strong>Code</strong></h1>
+<pre><code class="language-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+const int mxn=1e5+10;
+template&lt;class T&gt;void read(T &amp;x);
+
+int n,m,k;
+int di[mxn];
+struct pass{
+    int t,a,b;
+}a[mxn];
+int las[mxn],arr[mxn];
+int pre[mxn];
+int ans;
+int lst[mxn];
+
+int main()
+{
+    //freopen(&quot;bus.in&quot;,&quot;r&quot;,stdin);
+    //freopen(&quot;bus.out&quot;,&quot;w&quot;,stdout);
+    read(n); read(m); read(k);
+    for(int i=1;i&lt;n;i++) read(di[i]);
+    for(int i=1;i&lt;=m;i++)
+    {
+        read(a[i].t); read(a[i].a); read(a[i].b);
+    }
+    for(int i=1;i&lt;=m;i++)
+    {
+        las[a[i].a]=max(las[a[i].a],a[i].t);
+        pre[a[i].b]++;
+    }
+    arr[1]=las[1];
+    for(int i=1;i&lt;=n;i++) pre[i]+=pre[i-1];
+    for(int i=2;i&lt;=n;i++)
+    {
+        arr[i]=max(arr[i-1],las[i-1])+di[i-1];
+    }
+    for(int i=1;i&lt;=m;i++)
+    {
+        ans+=arr[a[i].b]-a[i].t;
+    }
+    while(k--)
+    {
+        int mx=-1;
+        int tar=0;
+        lst[n]=lst[n-1]=n;
+        for(int i=n-2;i&gt;=1;i--)
+        {
+            if(arr[i+1]&lt;=las[i+1])
+            {
+                lst[i]=i+1;
+            }
+            else lst[i]=lst[i+1];
+        }
+        for(int i=1;i&lt;n;i++)
+        {
+            int val=pre[lst[i]]-pre[i];
+            if(val&gt;mx&amp;&amp;di[i]&gt;0)
+            {
+                mx=val;
+                tar=i;
+            }
+        }
+        ans-=mx;
+        di[tar]-=1;
+        for(int i=2;i&lt;=n;i++) arr[i]=max(arr[i-1],las[i-1])+di[i-1];
+    }
+    printf(&quot;%d\n&quot;,ans);
+    //fclose(stdin); fclose(stdout);
+    return 0;
+}
+
+template&lt;class T&gt;void read(T &amp;x)
+{
+	x=0;int f=0;char ch=getchar();
+	while(ch&lt;'0'||ch&gt;'9') { f|=(ch=='-'); ch=getchar(); }
+	while(ch&lt;='9'&amp;&amp;ch&gt;='0') { x=(x&lt;&lt;1)+(x&lt;&lt;3)+(ch^48); ch=getchar(); }
+	x = f ? -x : x;
+	return ;
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[更新日志&问题报告]]></title>
         <id>https://chen-star1.github.io/post/geng-xin-ri-zhi-andwen-ti-bao-gao/</id>
