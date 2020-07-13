@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
     <title>我不是神犇</title>
-    <updated>2020-07-10T07:35:52.823Z</updated>
+    <updated>2020-07-13T15:25:17.318Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
@@ -11,31 +11,6 @@
     <logo>https://chen-star1.github.io/images/avatar.png</logo>
     <icon>https://chen-star1.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不是神犇</rights>
-    <entry>
-        <title type="html"><![CDATA[笔记：倍增]]></title>
-        <id>https://chen-star1.github.io/post/bi-ji-bei-zeng/</id>
-        <link href="https://chen-star1.github.io/post/bi-ji-bei-zeng/">
-        </link>
-        <updated>2020-07-10T07:20:29.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>该文章涉及内容较多</strong>，<s>所以要托更很久</s></p>
-<h1 id="引入">引入</h1>
-<p>假设有<strong>A,B</strong>两点，它们之间相差<strong>若干个</strong>单位为1的距离，那么A怎样<strong>最快</strong>走到B<br>
-难点：距离未知</p>
-<ul>
-<li>朴素算法<br>
-试探，A先走1步，走2步......看看多少步能走到B，时间复杂度O(n)</li>
-<li>倍增思想<br>
-先迈大步子，不行再缩小步数(每次减半)，用二进制实现减半操作<br>
-假设A,B距离9<br>
-试试16(2<sup>4</sup>)能不能用,超出了9，不能用<br>
-所以减半，试试8(2<sup>3</sup>)，8&lt;9所以跳8格<br>
-再往下搜，发现当2<sup>0</sup>时(也就是1)，可以再跳，所以再跳1，到达<br>
-跳格数(8-&gt;1)</li>
-</ul>
-<p><strong>要点</strong>:为什么不重复跳？<br>
-因为重复跳还不如跳个大的，比如跳2个2不如直接跳1个4</p>
-]]></content>
-    </entry>
     <entry>
         <title type="html"><![CDATA[2011提高组T6:观光公交]]></title>
         <id>https://chen-star1.github.io/post/2011-ti-gao-zu-t6guan-guang-gong-jiao/</id>
