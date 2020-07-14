@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://chen-star1.github.io/</id>
     <title>我不是神犇</title>
-    <updated>2020-07-13T15:25:17.318Z</updated>
+    <updated>2020-07-14T03:09:52.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://chen-star1.github.io/"/>
     <link rel="self" href="https://chen-star1.github.io/atom.xml"/>
@@ -11,6 +11,79 @@
     <logo>https://chen-star1.github.io/images/avatar.png</logo>
     <icon>https://chen-star1.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 我不是神犇</rights>
+    <entry>
+        <title type="html"><![CDATA[笔记：树剖-重链剖分]]></title>
+        <id>https://chen-star1.github.io/post/bi-ji-shu-pou-zhi-chong-lian-pou-fen/</id>
+        <link href="https://chen-star1.github.io/post/bi-ji-shu-pou-zhi-chong-lian-pou-fen/">
+        </link>
+        <updated>2020-07-13T14:52:54.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="引"><strong>引</strong></h1>
+<p>告诉你一棵树，已知树上的节点值。先给出两个节点序号(DNF排序)<br>
+可对该节点到另一节点的最短路径的所有节点值加减m<br>
+要求输出从该节点到另一节点<strong>的最短路径上的节点值的和</strong></p>
+<p>第一眼：这是道线段树(<s>不会线段树</s>)<br>
+确实，但不会写qwq<br>
+于是树剖就是解决这类问题的(不止这类问题)</p>
+<h1 id="概念"><strong>概念</strong></h1>
+<blockquote>
+<blockquote>
+<p>树链剖分用于将树分割成若干条链的形式，以维护树上路径的信息。 ----OI Wiki</p>
+</blockquote>
+</blockquote>
+<p><strong>方法</strong><br>
+一般有</p>
+<ol>
+<li>重链剖分</li>
+<li>长链剖分</li>
+<li>实链剖分(用于 Link/cut Tree 的剖分)<br>
+其中<strong>重链剖分</strong>最为常用<br>
+当然这篇博客讲<strong>重链剖分</strong>。</li>
+</ol>
+<p><strong>定义</strong>:<br>
+<strong>重子节点</strong>:表示其子节点的子树最大的子节点。如果有多个子树最大的子节点，取其一。若没有，则没有重子节点。<br>
+<strong>轻子节点</strong>:重子节点外剩余的子节点<br>
+<strong>重边</strong>:表示一个节点到<strong>重子节点</strong>的边<br>
+<strong>轻边</strong>:到其他轻子节点的边<br>
+<strong>重链</strong>:若干个重边组成的链(<strong>落单的节点单独作为一条重链</strong>)</p>
+<p>图例(<em>选自 OI Wiki</em>)：<br>
+<img src="https://chen-star1.github.io//post-images/1594695703802.png" alt="" loading="lazy"></p>
+<h1 id="实现"><strong>实现</strong>：</h1>
+<pre><code class="language-cpp">void dfs1(int o)
+{
+    son[o]=-1; //该节点的重儿子
+    siz[o]=1; //该节点下的子树的节点个数
+    for(int i=head[o];i;i=edge[i].next)
+    {
+        int b=edge[i].to;
+        if(!dep[b])
+        {
+            dep[b]=dep[o]+1; //该节点的深度
+            fa[b]=o; //父亲
+            dfs1(b);
+            siz[b]+=siz[o];
+            if(son[o]==-1||siz[b]&gt;siz[son[o]]) son[o]=b;
+        }
+    }
+}
+
+void dfs2(int o,int h)
+{
+    top[o]=h; //该节点所在重链的头节点
+    cnt++;
+    dfn[o]=cnt; //该节点的DFS序，线段树序号
+    rnk[cnt]=o; //DFS序的节点编号
+    if(son[o]==-1) return;
+    dfs2(son[o],h); //先遍历重儿子保证一个重链上的 DFN 序连续
+    for(int i=head[o];i;i=edge[i].next)
+    {
+        int b=edge[i].to;
+        if(son[o]!=b&amp;&amp;b!=fa[o]) dfs2(b,b);
+    }
+}
+</code></pre>
+<p><strong>稍后会给出树剖的实际应用</strong>(<s>能拖一会是一会</s>)</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[2011提高组T6:观光公交]]></title>
         <id>https://chen-star1.github.io/post/2011-ti-gao-zu-t6guan-guang-gong-jiao/</id>

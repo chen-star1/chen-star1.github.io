@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>笔记：树剖之重链剖分 - 我不是神犇</title>
+<title>笔记：树剖-重链剖分 - 我不是神犇</title>
 <link rel="shortcut icon" href="https://chen-star1.github.io//favicon.ico">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css">
 <link rel="stylesheet" href="https://chen-star1.github.io//media/css/tailwind.css">
 <link rel="stylesheet" href="https://chen-star1.github.io//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="笔记：树剖之重链剖分 - 我不是神犇 - Atom Feed" href="https://chen-star1.github.io//atom.xml">
+<link rel="alternate" type="application/atom+xml" title="笔记：树剖-重链剖分 - 我不是神犇 - Atom Feed" href="https://chen-star1.github.io//atom.xml">
 
     
 
@@ -21,7 +21,7 @@
 第一眼：这是道线段树(不会线段树)
 确实，但不会写qwq
 于是树剖就..." />
-  <meta property="og:title" content="笔记：树剖之重链剖分 - 我不是神犇">
+  <meta property="og:title" content="笔记：树剖-重链剖分 - 我不是神犇">
   <meta property="og:description" content="引
 告诉你一棵树，已知树上的节点值。先给出两个节点序号(DNF排序)
 可对该节点到另一节点的最短路径的所有节点值加减m
@@ -34,7 +34,7 @@
   <meta property="og:image" content="https://chen-star1.github.io//images/avatar.png">
   <meta property="og:image:height" content="630">
   <meta property="og:image:width" content="1200">
-  <meta name="twitter:title" content="笔记：树剖之重链剖分 - 我不是神犇">
+  <meta name="twitter:title" content="笔记：树剖-重链剖分 - 我不是神犇">
   <meta name="twitter:description" content="引
 告诉你一棵树，已知树上的节点值。先给出两个节点序号(DNF排序)
 可对该节点到另一节点的最短路径的所有节点值加减m
@@ -65,11 +65,16 @@
     <div class="max-w-4xl w-full mx-auto">
       <div class="shadow-box bg-white dark:bg-gray-600 rounded-lg pt-32 md:pt-64 px-4 md:px-8 pb-8 animated fadeIn mb-8">
         <h1 class="text-5xl font-semibold leading-normal pb-8 mb-8 border-b-8 border-gray-700">
-          笔记：树剖之重链剖分
+          笔记：树剖-重链剖分
         </h1>
         
         <div class="mb-8 flex flex-wrap">
-          <div class="text-gray-400 text-sm mr-4">2020-07-13 · 1 min read</div>
+          <div class="text-gray-400 text-sm mr-4">2020-07-13 · 3 min read</div>
+          
+            <a href="https://chen-star1.github.io/tag/LG7Eygo8Q/" class="text-gray-700 text-sm border-b-2 border-dotted border-gray-200 hover:border-gray-600 transition-all duration-100 inline-flex mr-2">
+              <i class="ri-hashtag"></i>
+              笔记
+            </a>
           
         </div>
         <div class="markdown mb-8" v-pre>
@@ -95,9 +100,49 @@
 其中<strong>重链剖分</strong>最为常用<br>
 当然这篇博客讲<strong>重链剖分</strong>。</li>
 </ol>
-<p><strong>定义</strong></p>
-<!-- more -->
-<!-- more -->
+<p><strong>定义</strong>:<br>
+<strong>重子节点</strong>:表示其子节点的子树最大的子节点。如果有多个子树最大的子节点，取其一。若没有，则没有重子节点。<br>
+<strong>轻子节点</strong>:重子节点外剩余的子节点<br>
+<strong>重边</strong>:表示一个节点到<strong>重子节点</strong>的边<br>
+<strong>轻边</strong>:到其他轻子节点的边<br>
+<strong>重链</strong>:若干个重边组成的链(<strong>落单的节点单独作为一条重链</strong>)</p>
+<p>图例(<em>选自 OI Wiki</em>)：<br>
+<img src="https://chen-star1.github.io//post-images/1594695703802.png" alt="" loading="lazy"></p>
+<h1 id="实现"><strong>实现</strong>：</h1>
+<pre><code class="language-cpp">void dfs1(int o)
+{
+    son[o]=-1; //该节点的重儿子
+    siz[o]=1; //该节点下的子树的节点个数
+    for(int i=head[o];i;i=edge[i].next)
+    {
+        int b=edge[i].to;
+        if(!dep[b])
+        {
+            dep[b]=dep[o]+1; //该节点的深度
+            fa[b]=o; //父亲
+            dfs1(b);
+            siz[b]+=siz[o];
+            if(son[o]==-1||siz[b]&gt;siz[son[o]]) son[o]=b;
+        }
+    }
+}
+
+void dfs2(int o,int h)
+{
+    top[o]=h; //该节点所在重链的头节点
+    cnt++;
+    dfn[o]=cnt; //该节点的DFS序，线段树序号
+    rnk[cnt]=o; //DFS序的节点编号
+    if(son[o]==-1) return;
+    dfs2(son[o],h); //先遍历重儿子保证一个重链上的 DFN 序连续
+    for(int i=head[o];i;i=edge[i].next)
+    {
+        int b=edge[i].to;
+        if(son[o]!=b&amp;&amp;b!=fa[o]) dfs2(b,b);
+    }
+}
+</code></pre>
+<p><strong>稍后会给出树剖的实际应用</strong>(<s>能拖一会是一会</s>)</p>
 
         </div>
         <!-- Share to Twitter, Weibo, Telegram -->
@@ -141,6 +186,7 @@
         <ul class="markdownIt-TOC">
 <li><a href="#%E5%BC%95"><strong>引</strong></a></li>
 <li><a href="#%E6%A6%82%E5%BF%B5"><strong>概念</strong></a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0"><strong>实现</strong>：</a></li>
 </ul>
 
       </div>
